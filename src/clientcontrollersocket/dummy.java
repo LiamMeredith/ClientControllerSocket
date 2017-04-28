@@ -33,7 +33,8 @@ public class dummy {
             i = new Scanner(System.in);
             switch (option) {
                 case 1:
-                    c.echo("hola");
+                    int[] a = {0 , 0};
+                    c.sendBall(new Ball(), a);
                     break;
     
             }

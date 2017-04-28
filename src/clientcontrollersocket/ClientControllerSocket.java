@@ -30,6 +30,7 @@ public class ClientControllerSocket extends Thread {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean live = true;
+    private int currentWidth = 0, currentHeight = 0;
 
     /**
      * constructor
@@ -62,7 +63,13 @@ public class ClientControllerSocket extends Thread {
                     }
                 } else if (o instanceof Peticion) {
                     switch (((Peticion) o).getAccion()) {
-
+                        case "get_windows":
+                            if (((Status) ((Peticion) o).getObject(0)).ID == 1) {
+                                int[] aux = ((int[]) ((Peticion) o).getObject(1));
+                                currentWidth = aux[0];
+                                currentHeight = aux[1];
+                            }
+                            break;
                     }
                 }
             } catch (IOException | ClassNotFoundException ex) {
@@ -74,6 +81,26 @@ public class ClientControllerSocket extends Thread {
         try {
             Peticion p = new Peticion("echo");
             p.pushData(str);
+            out.writeObject(p);
+        } catch (IOException ex) {
+
+        }
+    }
+
+    public void getWindows() {
+        try {
+            Peticion p = new Peticion("get_windows");
+            out.writeObject(p);
+        } catch (IOException ex) {
+
+        }
+    }
+
+    public void sendBall(Ball b, int[] pantalla) {
+        try {
+            Peticion p = new Peticion("enviar_pelota");
+            p.pushData(b);
+            p.pushData(pantalla);
             out.writeObject(p);
         } catch (IOException ex) {
 
