@@ -21,6 +21,8 @@ import org.physicballs.items.*;
  *
  * @author Liam-Portatil
  */
+
+
 public class ClientControllerSocket extends Thread {
 
     /**
@@ -96,10 +98,10 @@ public class ClientControllerSocket extends Thread {
         }
     }
 
-    public void sendBall(Ball b, int[] pantalla) {
+    public void sendBall(AndroidBall baux, int[] pantalla) {
         try {
             Peticion p = new Peticion("enviar_pelota");
-            p.pushData(b);
+            p.pushData(baux);
             p.pushData(pantalla);
             out.writeObject(p);
         } catch (IOException ex) {
@@ -112,6 +114,22 @@ public class ClientControllerSocket extends Thread {
             out.writeObject("client_controller");
         } catch (IOException ex) {
         }
+    }
+
+    public int getCurrentWidth() {
+        return currentWidth;
+    }
+
+    public void setCurrentWidth(int currentWidth) {
+        this.currentWidth = currentWidth;
+    }
+
+    public int getCurrentHeight() {
+        return currentHeight;
+    }
+
+    public void setCurrentHeight(int currentHeight) {
+        this.currentHeight = currentHeight;
     }
 
     /**

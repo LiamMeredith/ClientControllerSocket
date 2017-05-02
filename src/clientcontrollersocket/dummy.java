@@ -34,7 +34,7 @@ public class dummy {
             switch (option) {
                 case 1:
                     int[] a = {0 , 0};
-                    c.sendBall(new Ball(), a);
+//                    c.sendBall(new Ball(), a);
                     break;
     
             }
