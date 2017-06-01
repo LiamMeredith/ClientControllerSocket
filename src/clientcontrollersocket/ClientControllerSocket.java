@@ -32,7 +32,7 @@ public class ClientControllerSocket extends Thread {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean live = true;
-    private int currentWidth = 0, currentHeight = 0;
+    private int[][] plantilla;
 
     /**
      * constructor
@@ -67,9 +67,7 @@ public class ClientControllerSocket extends Thread {
                     switch (((Peticion) o).getAccion()) {
                         case "get_windows":
                             if (((Status) ((Peticion) o).getObject(0)).ID == 1) {
-                                int[] aux = ((int[]) ((Peticion) o).getObject(1));
-                                currentWidth = aux[0];
-                                currentHeight = aux[1];
+                                plantilla = ((int[][]) ((Peticion) o).getObject(1));
                             }
                             break;
                     }
@@ -114,22 +112,6 @@ public class ClientControllerSocket extends Thread {
             out.writeObject("client_controller");
         } catch (IOException ex) {
         }
-    }
-
-    public int getCurrentWidth() {
-        return currentWidth;
-    }
-
-    public void setCurrentWidth(int currentWidth) {
-        this.currentWidth = currentWidth;
-    }
-
-    public int getCurrentHeight() {
-        return currentHeight;
-    }
-
-    public void setCurrentHeight(int currentHeight) {
-        this.currentHeight = currentHeight;
     }
 
     /**
